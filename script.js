@@ -15,3 +15,25 @@ fetch('https://randomuser.me/api/')
            window.open(imgLink, "_blank"); 
         });
     });
+fetch('https://randomuser.me/api/?results=6&gender=male&nat=au,nz')
+    .then(resp => resp.json())
+    .then(data => {
+        data.results.map((user) => {
+            let clone = document.querySelector('#card1').cloneNode(true);
+            console.log(clone);
+            let name = user.name;
+            let nation = user.nat;
+            let email = user.email;
+            let userId = user.id.name;
+            let birth = user.dob.date;
+            let userImage = user.picture.large;
+            let imgLink = user.picture.medium;
+            clone.querySelector('#nation-email').textContent = `${nation} - ${email}`;
+            clone.querySelector('#image').src = userImage;
+            clone.querySelector('#name').textContent = name.first;
+            clone.querySelector("#pic-button").addEventListener('click', () => {
+               window.open(imgLink, "_blank"); 
+            });
+            document.querySelector('#root').appendChild(clone);
+        })
+})
